@@ -1,5 +1,7 @@
 package src.Files;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 public class DatHeader {
@@ -121,18 +123,42 @@ public class DatHeader {
     }
 
     public String getFWDate() {
-        byte x[] = new byte[13];
-        int j = 0;
-        for (int i = 21; i < 33; i++) {
-            x[j++] = datFile.memory.get(i);
+        byte x[] = new byte[12];
+        final int start = 21;
+
+        // preAnalyze() can close the mapped file, so memory may be null here.
+        if (datFile == null) {
+            return "";
         }
+
+        if (datFile.memory != null && datFile.getLength() >= (start + x.length)) {
+            for (int i = 0; i < x.length; i++) {
+                x[i] = datFile.memory.get(start + i);
+            }
+        } else if (datFile.file != null) {
+            try (FileInputStream fis = new FileInputStream(datFile.file)) {
+                long skipped = fis.skip(start);
+                if (skipped < start) {
+                    return "";
+                }
+                int read = fis.read(x, 0, x.length);
+                if (read <= 0) {
+                    return "";
+                }
+            } catch (IOException e) {
+                return "";
+            }
+        } else {
+            return "";
+        }
+
         String retv;
         try {
             retv = new String(x, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             retv = "";
         }
-        return retv;
+        return retv.trim();
     }
 
 }

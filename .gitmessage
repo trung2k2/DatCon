@@ -1,0 +1,39 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+#
+# Type can be
+#   feat     (new feature)
+#   fix      (bug fix)
+#   docs     (documentation)
+#   style    (formatting, missing semicolons, etc)
+#   refactor (code change that neither fixes a bug nor adds a feature)
+#   test     (adding missing tests)
+#   chore    (maintenance)
+#
+# Scope is optional; if present, it should specify what is being changed
+#
+# Subject:
+#   - use imperative, present tense: "change" not "changed" or "changes"
+#   - don't capitalize first letter, unless it's a proper noun
+#   - no period (.) at the end
+#   - max 50 chars
+#
+# Body: (optional)
+#   - wrap at 72 characters
+#   - explain *what* and *why*, not *how*
+#   - separate from subject with a blank line
+#
+# Footer: (optional)
+#   - reference issues like: Closes #123
+#   - breaking changes: BREAKING CHANGE: <description>
+#
+# Example:
+#   feat(parser): add support for V4 DAT format
+#
+#   Add logic to parse V4 record structure with new XOR key
+#   derivation. Maintain backward compatibility with V1/V3.
+#
+#   Closes #456
